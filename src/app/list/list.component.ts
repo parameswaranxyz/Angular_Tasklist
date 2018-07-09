@@ -9,7 +9,6 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css'],
   template:`
-            <p> Applist </p>
             <p *ngFor="let item of taskList">
                 {{item.Task_id}}
                 {{item.Task_des}}
@@ -18,50 +17,30 @@ import { HttpClient } from '@angular/common/http';
                 {{item.Task_dependant}}
                 {{item.Task_schedule}}
             </p>
-            <p>{{ taskList}}</p>
+            <p>{{ taskList }}</p>
            `
 })
 
 export class ListComponent implements OnInit {
   
 
-  taskList: Task[] = []
-  headers: string[];
-  
-  // taskList: Task[] = [{'Task_id': '12', 'Task_des': 'job A', 'Task_priority': 1, 'Task_weight': 3, 'Task_dependant': 'null',
+  taskList:Task[] = [] 
+
+  // taskList:Task[] = [{'Task_id': '12', 'Task_des': 'job A', 'Task_priority': 1, 'Task_weight': 3, 'Task_dependant': 'null',
   //  'Task_schedule': 2},
   // {'Task_id': '12', 'Task_des': 'job A', 'Task_priority': 1, 'Task_weight': 3, 'Task_dependant': 'null',
   //  'Task_schedule': 2}];
 
-  // constructor(private taskService:TaskListService) { }
-
-  // constructor(){}
-
   url:string = "/api/getTaskList";
 
-  constructor(private httpClient: HttpClient,private taskService:TaskListService) {
-    this.httpClient.get("/api/getTaskList").toPromise().then(response => {
-    console.log(response['list']);
-      // this.taskList=response['list'];
-    })    
+  constructor(private httpClient: HttpClient,private taskService:TaskListService) {}
+
+  getList(){
+    this.taskService.getTaskList().subscribe( data => this.taskList = data['list']); 
   }
 
   ngOnInit(){
-    this.taskService.getTaskList().subscribe( function (data) { console.log(data['list']) })
+    this.getList();
+    console.log(this.taskList);
   }
-
-
-  // showConfigResponse() {
-  //   this.taskService.getTaskResponse()
-  //     .subscribe(resp => {
-  //         this.taskList = resp.body;
-  //     });
-  // }
-
-  // ngOnInit() {
-  //   this.test = <JSON>this.taskService.getTaskListJson()
-  //   // this.taskService.getTaskListJson().subscribe(data => this.sample_json = data);
-  //   //  this.taskService.getTaskList().subscribe(data => this.taskList = data);
-  // }
-
 }
