@@ -3,6 +3,9 @@ import { Observable } from 'rxjs';
 import { TaskI } from '../TaskI';
 import { HttpResponse } from "@angular/common/http"
 import { HttpClient } from '@angular/common/http';
+import { PARAMETERS } from '@angular/core/src/util/decorators';
+import { url } from 'inspector';
+import { query } from '@angular/core/src/render3/query';
 
 
 @Injectable({
@@ -19,13 +22,19 @@ export class TaskListService {
   getTaskList(): Observable<TaskI[]> {
     return this.http.get<TaskI[]>(this._url);
   }
-    // getTaskList(){
-    // }
 
-    // getTaskResponse(): Observable<HttpResponse<TaskI[]>> {
-    //   return this.http.get<TaskI[]>(
-    //     this._url, { observe: 'response' });
-    // }
+  deleteTask(_id){
+    console.log("_id:"+_id);
+    return this.http.post(this._url_delete,JSON.stringify({"Task_id": _id}));
+  }
+
+  // getTaskList(){
+  // }
+
+  // getTaskResponse(): Observable<HttpResponse<TaskI[]>> {
+  //   return this.http.get<TaskI[]>(
+  //     this._url, { observe: 'response' });
+  // }
 
   // getTaskList():Observable<TaskI[]>{  
   //   console.log("this is retrun by server"+this.http.get<TaskI[]>(this._url));
