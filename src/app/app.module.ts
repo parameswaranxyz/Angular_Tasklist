@@ -6,12 +6,14 @@ import { ListComponent } from './list/list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { TaskListService } from './task-list.service';
+import { UpdateTaskComponent } from './update-task/update-task.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListComponent,
-    AddTaskComponent
+    AddTaskComponent,
+    UpdateTaskComponent
   ],
   imports: [
     BrowserModule,

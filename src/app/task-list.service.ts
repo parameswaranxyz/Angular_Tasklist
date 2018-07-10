@@ -14,11 +14,11 @@ export class TaskListService {
   _url_delete:string = "/api/deleteTask";
   _url_getATask:string = "/api/getTask";
   
-
   constructor(private http:HttpClient) { }
  
-  getATask(): Observable<TaskI> {
-    return this.http.get<TaskI>(this._url_getATask);
+  getATask(_id): Observable<TaskI> {
+    console.log("Inside getATask"+_id);
+    return this.http.get<TaskI>(this._url_getATask);//,JSON.stringify({"Task_id": _id}));
   }
   
   getTaskList(): Observable<TaskI[]> {
@@ -40,12 +40,14 @@ export class TaskListService {
       "Task_schedule":Task_schedule}));
   }
 
-  // updateTask(Task_des,Task_priority,Task_weight,Task_dependant,Task_schedule){
-  //   return this.http.post(this._url_add,JSON.stringify(
-  //     {"Task_des":Task_des,
-  //     "Task_priority":Task_priority,
-  //     "Task_weight":Task_weight,
-  //     "Task_dependant":Task_dependant,
-  //     "Task_schedule":Task_schedule}));
-  // }
+  updateTask(Task_id,Task_des,Task_priority,Task_weight,Task_dependant,Task_schedule){
+    console.log("inside the service update"+Task_id,Task_des,Task_priority,Task_weight,Task_dependant,Task_schedule);
+    return this.http.post(this._url_update,JSON.stringify(
+      {"Task_id":Task_id,
+      "Task_des":Task_des,
+      "Task_priority":Task_priority,
+      "Task_weight":Task_weight,
+      "Task_dependant":Task_dependant,
+      "Task_schedule":Task_schedule}));
+  }
 }
