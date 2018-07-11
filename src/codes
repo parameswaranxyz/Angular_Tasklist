@@ -1,0 +1,2 @@
+easy way to create table
+ng g @angular/material:table --name=task-list-table

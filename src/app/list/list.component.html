@@ -1,4 +1,47 @@
-<p>
-  list works!
-</p>
+<!-- <div style="color:black">Notification:
+    <p>Delete Notifaction:{{deleteMessage}}</p>
+</div> -->
+
+<mat-card>
+ <div class="table-responsive">
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th>Task_id</th>
+        <th>Description</th>
+        <th>Priority</th>
+        <th>Weight</th>
+        <th>Dependant</th>
+        <th>Schedule</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of taskList" (click)="onSelect(item)">
+        <td>{{item.Task_id}}</td>
+        <td>{{item.Task_des}}</td>
+        <td>{{item.Task_priority}}</td>
+        <td>{{item.Task_weight}}</td>
+        <td>{{item.Task_dependant.replace('TaskEntry object (','').replace(')','')}}</td>
+        <td>{{item.Task_schedule}}</td>
+        <td><button (click)="deleteMe(item.Task_id)">Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- <app-add-task></app-add-task> -->
+</div>
+<button mat-flat-button color="primary" routerLink="/AddTask">Add</button>
+</mat-card>
+
+<!-- <app-update-task [messageTask]="taskToEdit"></app-update-task> -->
+<!-- <app-task-list-table></app-task-list-table> -->
+  <!-- <div *ngFor="let item of taskList" style="padding:5px;border:1px solid white;display:block;background-color:black;color:white" (click)="onSelect(item)">
+      {{item.Task_id}}
+      {{item.Task_des}}
+      {{item.Task_priority}}
+      {{item.Task_weight}}
+      {{item.Task_dependant.replace('TaskEntry object (','').replace(')','')}}
+      {{item.Task_schedule}}
+      <button (click)="deleteMe(item.Task_id)">Delete</button>
+  </div> -->
+  
 

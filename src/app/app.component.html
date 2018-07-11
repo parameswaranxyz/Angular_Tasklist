@@ -1,4 +1,16 @@
-<p>Welcome to {{ title }}!</p>
 <!-- <app-list></app-list> -->
+<!-- <app-task-list-table></app-task-list-table> -->
+<mat-toolbar color="primary">
+    <span>Task Manager</span>
+    <span class="example-fill-remaining-space"></span>
+</mat-toolbar>
+<nav>
+    <!-- <a routerLink="">ListTask</a> -->
+    <a routerLink="/AddTask" routerLinkActive="active">AddTask</a>
+    <a routerLink="/UpdateTask">UpdateTask</a>
+    <a routerLink="/TaskTable">TaskTable</a>
+</nav>
+<router-outlet></router-outlet>
 
-<p>hdasudasd </p>
+<!-- <app-task-table>loading</app-task-table>
+<app-list></app-list> -->

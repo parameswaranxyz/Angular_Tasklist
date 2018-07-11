@@ -1,27 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from '../../Task';
 import { TaskListService } from '../task-list.service';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css'],
-  template:`
-            <div style="color:black">Notification:
-              <p>Delete Notifaction:{{deleteMessage}}</p>
-            </div>
-            <div *ngFor="let item of taskList" style="padding:5px;border:1px solid white;display:block;background-color:black;color:white" (click)="onSelect(item)">
-                {{item.Task_id}}
-                {{item.Task_des}}
-                {{item.Task_priority}}
-                {{item.Task_weight}}
-                {{item.Task_dependant}}
-                {{item.Task_schedule}}
-                <button (click)="deleteMe(item.Task_id)">Delete</button>
-            </div>
-            <app-update-task [messageTask]="taskToEdit"></app-update-task>           
-           `
+  // template:``
 })
 
 export class ListComponent implements OnInit {
@@ -46,13 +31,23 @@ export class ListComponent implements OnInit {
   }
 
   deleteMe(id){
-    this.taskService.deleteTask(id).subscribe( data => this.deleteMessage = "Removed the Task " + data['status']);
-    // if (this.deleteMessage == "Removed the Task success")
+    this.taskService.deleteTask(id).subscribe( data => this.deleteMessage = data['status']);
+    // if(this.deleteMessage=="success"){
+    //   console.log("Enter the remove list");  
+    //   this.taskList.forEach(element => {
+    //       if(element.Task_id==id){
+    //         console.log("remove from list"+element);
+    //       }
+    //   });
+    //   console.log()
+    // }
     this.getList();
   }
 
   ngOnInit(){
     this.getList();
+    // taskList = new TaskTableDataSource();
+    
     console.log(this.taskList);
   }
 }
