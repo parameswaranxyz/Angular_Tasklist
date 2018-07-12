@@ -20,6 +20,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
+import {Data} from "./data";
 
 
 
@@ -60,7 +61,7 @@ const appRoutes: Routes = [
       { enableTracing: true } 
     )
   ],
-  providers: [TaskListService],
+  providers: [TaskListService,Data],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

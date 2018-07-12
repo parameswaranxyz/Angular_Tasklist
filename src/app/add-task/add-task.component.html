@@ -16,7 +16,6 @@
 </tbody>
 </table> -->
 
-
   <div class="example-container">
     <h5>Add Task Entry</h5>
     <mat-form-field>
@@ -35,8 +34,21 @@
         <input #Task_weight (keyup)="0"  name="Task_weight" matInput placeholder="Task_weight"/>
     </mat-form-field>
     
+    <!-- <md-select placeholder="State" (change)="someMethod($event)">
+        <md-option *ngFor="let state of optList" [value]="state.">
+          {{ state.Task_id }}
+        </md-option>
+    </md-select> -->
+
+    <!-- <mat-form-field>
+        <mat-select placeholder="Dependant" [(ngModel)]="selectedValue" (change)="selectChangeHandler($event)" >
+          <mat-option value="None">None</mat-option>
+          <mat-option #Task_dependant (keyup)="0" *ngFor="let item of optList" [value]="item.Task_id">{{item.Task_id}}</mat-option>
+        </mat-select>
+    </mat-form-field> -->
+
     <mat-form-field>
-      <mat-select placeholder="Dependant" (change)="selectChangeHandler($event)">
+      <mat-select placeholder="Dependant" [(value)]="selectedValue" >
         <mat-option value="None">None</mat-option>
         <mat-option #Task_dependant (keyup)="0" *ngFor="let item of optList" [value]="item.Task_id">{{item.Task_id}}</mat-option>
       </mat-select>
@@ -49,7 +61,7 @@
   </div>
 
   <div class="control">
-    <button mat-flat-button color="primary" (click)="submitMe(Task_id.value,Task_des.value,Task_priority.value,Task_weight.value,selectedId,Task_schedule.value)">Save</button>
+    <button mat-flat-button color="primary" (click)="submitMe(Task_id.value,Task_des.value,Task_priority.value,Task_weight.value,selectedValue,Task_schedule.value)">Save</button>
     <button mat-flat-button color="primary" routerLink="">Cancel</button>
   </div>
 </mat-card>

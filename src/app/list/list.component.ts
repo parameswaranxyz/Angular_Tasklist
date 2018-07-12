@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from '../../Task';
 import { TaskListService } from '../task-list.service';
+import {Router, NavigationExtras} from "@angular/router";
+import { Data } from "../data";
 
 @Component({
   selector: 'app-list',
@@ -11,7 +13,7 @@ import { TaskListService } from '../task-list.service';
 
 export class ListComponent implements OnInit {
   
-  taskToEdit:Task
+  taskToEdit:Task;
   taskList:Task[] = [] 
   deleteMessage:string = ""
   // taskList:Task[] = [{'Task_id': '12', 'Task_des': 'job A', 'Task_priority': 1, 'Task_weight': 3, 'Task_dependant': 'null',
@@ -19,7 +21,7 @@ export class ListComponent implements OnInit {
   // {'Task_id': '12', 'Task_des': 'job A', 'Task_priority': 1, 'Task_weight': 3, 'Task_dependant': 'null',
   //  'Task_schedule': 2}];
 
-  constructor(private taskService:TaskListService) {}
+  constructor(private taskService:TaskListService,private router: Router,private dataStore: Data) {}
 
   getList(){
     this.taskService.getTaskList().subscribe( data => this.taskList = data['list']); 
@@ -27,7 +29,11 @@ export class ListComponent implements OnInit {
 
   onSelect(editTask){
     this.taskToEdit = editTask;
-    console.log(editTask);
+    // console.log(editTask);
+    this.dataStore.storage = {
+          "messageTask": this.taskToEdit
+      };
+    this.router.navigate(["/UpdateTask"]);
   }
 
   deleteMe(id){
@@ -41,6 +47,7 @@ export class ListComponent implements OnInit {
     //   });
     //   console.log()
     // }
+    this.router.navigate([""]);
     this.getList();
   }
 
@@ -50,4 +57,6 @@ export class ListComponent implements OnInit {
     
     console.log(this.taskList);
   }
+
+  
 }

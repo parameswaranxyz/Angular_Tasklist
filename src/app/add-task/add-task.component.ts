@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {TaskListService} from '../task-list.service'
 import { Task } from '../../Task';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-add-task',
@@ -16,17 +17,22 @@ export class AddTaskComponent implements OnInit {
   active = true;
 
   addMessage:string = ""
-  selectedId:string = "NULL"
+  selectedValue:string;
 
-  constructor(private taskService:TaskListService) { }
+  constructor(private taskService:TaskListService,private router:Router) { }
 
-  selectChangeHandler(event: any) {
-    //update the ui
-    if(event.target.value == "None")
-      this.selectedId = "NULL";
-    else
-      this.selectedId = event.target.value;
-    console.log(this.selectedId);
+  // selectChangeHandler(event: any) {
+  //   //update the ui
+  //   if(event.target.value == "None")
+  //     this.selectedId = "NULL";
+  //   else
+  //     this.selectedId = event.value;
+
+  //   console.log(this.selectedId);
+  // }
+
+  someMethod(event:any){
+    console.log('Some option selected' + event.value);
   }
 
   submitMe(Task_id,Task_des,Task_priority,Task_weight,Task_dependant,Task_schedule){
@@ -36,6 +42,7 @@ export class AddTaskComponent implements OnInit {
     
     console.log(this.addMessage);  
     console.log(Task_id,Task_des,Task_priority,Task_weight,Task_dependant,Task_schedule);
+    this.router.navigate([""]);
   }
 
   getList(){
