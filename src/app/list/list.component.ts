@@ -1,35 +1,43 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Task } from '../../Task';
 import { TaskListService } from '../task-list.service';
 import {Router, NavigationExtras} from "@angular/router";
 import { Data } from "../data";
+import {TaskI} from '../../TaskI';
+import {MatPaginator, MatTableDataSource} from '@angular/material';
+// import {UserDataSource} from '../../user-data';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css'],
-  // template:``
 })
 
 export class ListComponent implements OnInit {
+
+  displayedColumns:string[] = ['Id', 'description', 'priority','weight', 'dependant','schedule','control'];
   
   taskToEdit:Task;
-  taskList:Task[] = [] 
-  deleteMessage:string = ""
-  // taskList:Task[] = [{'Task_id': '12', 'Task_des': 'job A', 'Task_priority': 1, 'Task_weight': 3, 'Task_dependant': 'null',
-  //  'Task_schedule': 2},
-  // {'Task_id': '12', 'Task_des': 'job A', 'Task_priority': 1, 'Task_weight': 3, 'Task_dependant': 'null',
-  //  'Task_schedule': 2}];
+  taskList:Task[] = [];
+  deleteMessage:string = "";
 
-  constructor(private taskService:TaskListService,private router: Router,private dataStore: Data) {}
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  constructor(private taskService:TaskListService,private router: Router,private dataStore: Data) {
+    // this.dataSource = new UserDataSource(taskService);
+  }
 
   getList(){
-    this.taskService.getTaskList().subscribe( data => this.taskList = data['list']); 
+    this.taskService.getTaskList().subscribe( data => {
+      this.taskList = <TaskI>data['list'];
+      this.dataSource = this.taskList;
+      this.dataSource.paginator = this.paginator;
+      console.log("Datasource",this.dataSource);
+    }); 
   }
 
   onSelect(editTask){
     this.taskToEdit = editTask;
-    // console.log(editTask);
     this.dataStore.storage = {
           "messageTask": this.taskToEdit
       };
@@ -38,25 +46,31 @@ export class ListComponent implements OnInit {
 
   deleteMe(id){
     this.taskService.deleteTask(id).subscribe( data => this.deleteMessage = data['status']);
-    // if(this.deleteMessage=="success"){
-    //   console.log("Enter the remove list");  
-    //   this.taskList.forEach(element => {
-    //       if(element.Task_id==id){
-    //         console.log("remove from list"+element);
-    //       }
-    //   });
-    //   console.log()
-    // }
     this.router.navigate([""]);
     this.getList();
   }
 
   ngOnInit(){
     this.getList();
-    // taskList = new TaskTableDataSource();
-    
-    console.log(this.taskList);
+    // this.taskService.getTaskList().subscribe( data => this.dataSource = new MatTableDataSource<TaskI>(data['list']));
   }
-
-  
 }
+
+
+import { DataSource } from '@angular/cdk/collections';
+
+export class UserDataSource extends DataSource<any> {
+     
+  source;
+
+    constructor(private taskService: TaskListService;) {
+      super();
+    }
+  
+    connect(): Observable<User[]> {
+      this.taskService.getTaskList().subscribe( data => this.source = <TaskI>data['list']);
+      return this.source;
+    }
+
+    disconnect() {}
+  }

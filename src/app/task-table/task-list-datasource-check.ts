@@ -9,9 +9,8 @@ const TASKLIST: TaskI[] = [];
 
 export class TaskTableDataSource extends DataSource<TaskI> {
   data: TaskI[] = [];
-  private taskService:TaskListService;
-
-  constructor(private paginator: MatPaginator, private sort: MatSort) {
+  
+  constructor(private paginator: MatPaginator, private sort: MatSort,private taskService:TaskListService) {
     super();
   }
 

@@ -1,8 +1,63 @@
 <!-- <div style="color:black">Notification:
     <p>Delete Notifaction:{{deleteMessage}}</p>
 </div> -->
-
 <mat-card >
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" (click)="onSelect(element)"> -->
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+  
+    <!-- Id Column -->
+    <ng-container matColumnDef="Id">
+      <th mat-header-cell *matHeaderCellDef> Id </th>
+      <td mat-cell *matCellDef="let element"> {{element.Task_id}} </td>
+    </ng-container>
+  
+    <!-- Description Column -->
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef> Description </th>
+      <td mat-cell *matCellDef="let element">{{element.Task_des}} </td>
+    </ng-container>
+
+    <!-- priority Column -->
+    <ng-container matColumnDef="priority">
+        <th mat-header-cell *matHeaderCellDef> Priority </th>
+        <td mat-cell *matCellDef="let element"> {{element.Task_priority}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="weight">
+      <th mat-header-cell *matHeaderCellDef> Weight </th>
+      <td mat-cell *matCellDef="let element"> {{element.Task_weight}} </td>
+    </ng-container>
+  
+    <!-- Dependant Column -->
+    <ng-container matColumnDef="dependant">
+        <th mat-header-cell *matHeaderCellDef> Dependant </th>
+        <td mat-cell *matCellDef="let element"> {{element.Task_dependant}} </td>
+    </ng-container>
+
+    <!-- Schedule Column -->
+    <ng-container matColumnDef="schedule">
+        <th mat-header-cell *matHeaderCellDef> Schedule </th>
+        <td mat-cell *matCellDef="let element"> {{element.Task_schedule}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="control">
+        <th mat-header-cell *matHeaderCellDef> Control </th>
+        <td mat-cell *matCellDef="let element"> 
+            <button mat-flat-button color="primary" (click)="deleteMe(element.Task_id)" >Delete</button>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</mat-card>
+
+
+<!-- <mat-card >
  <div class="table-responsive">
   <table class="table table-striped table-sm">
     <thead>
@@ -23,15 +78,11 @@
         <td>{{item.Task_weight}}</td>
         <td>{{item.Task_dependant.replace('TaskEntry object (','').replace(')','')}}</td>
         <td>{{item.Task_schedule}}</td>
-        <td><button (click)="deleteMe(item.Task_id)" >Delete</button></td>
+        <td><button  mat-flat-button color="primary" (click)="deleteMe(item.Task_id)" >Delete</button></td>
       </tr>
     </tbody>
   </table>
-  <!-- <app-add-task></app-add-task> -->
-</div>
-<button mat-flat-button color="primary" routerLink="/AddTask">Add</button>
-</mat-card>
-
+   <app-add-task></app-add-task>s -->
 <!-- <app-update-task [messageTask]="taskToEdit"></app-update-task> -->
 <!-- <app-task-list-table></app-task-list-table> -->
   <!-- <div *ngFor="let item of taskList" style="padding:5px;border:1px solid white;display:block;background-color:black;color:white" (click)="onSelect(item)">

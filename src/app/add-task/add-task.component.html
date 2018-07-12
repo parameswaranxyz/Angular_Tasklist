@@ -49,7 +49,7 @@
 
     <mat-form-field>
       <mat-select placeholder="Dependant" [(value)]="selectedValue" >
-        <mat-option value="None">None</mat-option>
+        <mat-option value="NULL">None</mat-option>
         <mat-option #Task_dependant (keyup)="0" *ngFor="let item of optList" [value]="item.Task_id">{{item.Task_id}}</mat-option>
       </mat-select>
     </mat-form-field>

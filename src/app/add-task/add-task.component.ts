@@ -17,7 +17,7 @@ export class AddTaskComponent implements OnInit {
   active = true;
 
   addMessage:string = ""
-  selectedValue:string;
+  selectedValue:string = "NULL";
 
   constructor(private taskService:TaskListService,private router:Router) { }
 
