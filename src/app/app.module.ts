@@ -58,7 +58,7 @@ const appRoutes: Routes = [
     MatInputModule,
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } 
+      { enableTracing: false } 
     )
   ],
   providers: [TaskListService,Data],

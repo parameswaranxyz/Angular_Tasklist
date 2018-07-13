@@ -2,49 +2,49 @@
     <p>Delete Notifaction:{{deleteMessage}}</p>
 </div> -->
 <mat-card >
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" (click)="onSelect(element)"> -->
+<table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" class="mat-elevation-z8" >
 
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
   
     <!-- Id Column -->
-    <ng-container matColumnDef="Id">
-      <th mat-header-cell *matHeaderCellDef> Id </th>
+    <ng-container matColumnDef="Id" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header='id'> Id </th>
       <td mat-cell *matCellDef="let element"> {{element.Task_id}} </td>
     </ng-container>
   
     <!-- Description Column -->
     <ng-container matColumnDef="description">
-      <th mat-header-cell *matHeaderCellDef> Description </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header='des'> Description </th>
       <td mat-cell *matCellDef="let element">{{element.Task_des}} </td>
     </ng-container>
 
     <!-- priority Column -->
     <ng-container matColumnDef="priority">
-        <th mat-header-cell *matHeaderCellDef> Priority </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header='priority'> Priority </th>
         <td mat-cell *matCellDef="let element"> {{element.Task_priority}} </td>
     </ng-container>
 
     <!-- Weight Column -->
     <ng-container matColumnDef="weight">
-      <th mat-header-cell *matHeaderCellDef> Weight </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header='weight'> Weight </th>
       <td mat-cell *matCellDef="let element"> {{element.Task_weight}} </td>
     </ng-container>
   
     <!-- Dependant Column -->
     <ng-container matColumnDef="dependant">
-        <th mat-header-cell *matHeaderCellDef> Dependant </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header='dependant'> Dependant </th>
         <td mat-cell *matCellDef="let element"> {{element.Task_dependant}} </td>
     </ng-container>
 
     <!-- Schedule Column -->
     <ng-container matColumnDef="schedule">
-        <th mat-header-cell *matHeaderCellDef> Schedule </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header='schedule'> Schedule </th>
         <td mat-cell *matCellDef="let element"> {{element.Task_schedule}} </td>
     </ng-container>
 
     <ng-container matColumnDef="control">
-        <th mat-header-cell *matHeaderCellDef> Control </th>
+        <th mat-header-cell *matHeaderCellDef > Control </th>
         <td mat-cell *matCellDef="let element"> 
             <button mat-flat-button color="primary" (click)="deleteMe(element.Task_id)" >Delete</button>
         </td>
@@ -54,8 +54,8 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
   <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  <button mat-flat-button color="primary" routerLink="/AddTask">Add</button>
 </mat-card>
-
 
 <!-- <mat-card >
  <div class="table-responsive">

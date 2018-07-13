@@ -4,8 +4,7 @@ import { TaskListService } from '../task-list.service';
 import {Router, NavigationExtras} from "@angular/router";
 import { Data } from "../data";
 import {TaskI} from '../../TaskI';
-import {MatPaginator, MatTableDataSource} from '@angular/material';
-// import {UserDataSource} from '../../user-data';
+import {MatPaginator, MatTableDataSource, MatSort} from '@angular/material';
 
 @Component({
   selector: 'app-list',
@@ -18,28 +17,54 @@ export class ListComponent implements OnInit {
   displayedColumns:string[] = ['Id', 'description', 'priority','weight', 'dependant','schedule','control'];
   
   taskToEdit:Task;
-  taskList:Task[] = [];
   deleteMessage:string = "";
+  sortedData:TaskI[];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private taskService:TaskListService,private router: Router,private dataStore: Data) {
-    // this.dataSource = new UserDataSource(taskService);
-  }
+  constructor(private taskService:TaskListService,private router: Router,private dataStore: Data) {}
 
+  // get the data and convert it as table with paginator and sorting option
   getList(){
     this.taskService.getTaskList().subscribe( data => {
-      this.taskList = <TaskI>data['list'];
-      this.dataSource = this.taskList;
+      this.dataSource = new MatTableDataSource<TaskI>(data['list']);
       this.dataSource.paginator = this.paginator;
-      console.log("Datasource",this.dataSource);
+      this.dataSource.sort = this.sort;
+      this.sortedData = data['list'].slice();
+      // console.log("Datasource",this.sortedData);
     }); 
   }
 
+  sortData(sort: Sort) {
+    const data = this.sortedData.slice();
+    console.log("sliced data",data);
+    this.dataSource = this.sortedData;
+    this.dataSource.paginator = this.paginator;
+    if (!sort.active || sort.direction === '') {
+      this.sortedData = data;
+      this.dataSource = this.sortedData;
+      return;
+    }
+  
+    this.sortedData = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'id': return compare(a.Task_id, b.Task_id, isAsc);
+        case 'des': return compare(a.Task_des, b.Task_des, isAsc);
+        case 'priority': return compare(a.Task_priority, b.Task_priority, isAsc);
+        case 'weight': return compare(a.Task_weight, b.Task_weight, isAsc);
+        case 'dependant': return compare(a.Task_dependant, b.Task_dependant, isAsc);
+        case 'schedule': return compare(a.Task_schedule, b.Task_schedule, isAsc);
+        default: return 0;
+      }
+    });
+   }
+  
   onSelect(editTask){
     this.taskToEdit = editTask;
     this.dataStore.storage = {
-          "messageTask": this.taskToEdit
+          "messageTask": this.taskToEdit;
       };
     this.router.navigate(["/UpdateTask"]);
   }
@@ -52,25 +77,9 @@ export class ListComponent implements OnInit {
 
   ngOnInit(){
     this.getList();
-    // this.taskService.getTaskList().subscribe( data => this.dataSource = new MatTableDataSource<TaskI>(data['list']));
   }
 }
 
-
-import { DataSource } from '@angular/cdk/collections';
-
-export class UserDataSource extends DataSource<any> {
-     
-  source;
-
-    constructor(private taskService: TaskListService;) {
-      super();
-    }
-  
-    connect(): Observable<User[]> {
-      this.taskService.getTaskList().subscribe( data => this.source = <TaskI>data['list']);
-      return this.source;
-    }
-
-    disconnect() {}
-  }
+function compare(a, b, isAsc) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+}
