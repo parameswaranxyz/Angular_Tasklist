@@ -29,8 +29,8 @@ export class ListComponent implements OnInit {
   getList(){
     this.taskService.getTaskList().subscribe( data => {
       this.dataSource = new MatTableDataSource<TaskI>(data['list']);
-      this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;      
       this.sortedData = data['list'].slice();
       // console.log("Datasource",this.sortedData);
     }); 
@@ -39,8 +39,9 @@ export class ListComponent implements OnInit {
   sortData(sort: Sort) {
     const data = this.sortedData.slice();
     console.log("sliced data",data);
-    this.dataSource = this.sortedData;
+    this.dataSource = data;
     this.dataSource.paginator = this.paginator;
+    
     if (!sort.active || sort.direction === '') {
       this.sortedData = data;
       this.dataSource = this.sortedData;
@@ -61,6 +62,10 @@ export class ListComponent implements OnInit {
     });
    }
   
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   onSelect(editTask){
     this.taskToEdit = editTask;
     this.dataStore.storage = {

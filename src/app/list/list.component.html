@@ -2,6 +2,9 @@
     <p>Delete Notifaction:{{deleteMessage}}</p>
 </div> -->
 <mat-card >
+<mat-form-field class="search">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Task">
+</mat-form-field>
 <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" class="mat-elevation-z8" >
 
     <!--- Note that these columns can be defined in any order.
