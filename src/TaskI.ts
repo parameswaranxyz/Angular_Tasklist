@@ -5,4 +5,5 @@ export interface TaskI{
     Task_weight:number,
     Task_dependant:string,
     Task_schedule:number,
+    Task_create:string,
 }

@@ -16,7 +16,7 @@ export class AddTaskComponent implements OnInit {
 
   active = true;
 
-  addMessage:string = ""
+  addMessage:string = "";
   selectedValue:string = "NULL";
 
   constructor(private taskService:TaskListService,private router:Router) { }
@@ -38,10 +38,12 @@ export class AddTaskComponent implements OnInit {
   submitMe(Task_id,Task_des,Task_priority,Task_weight,Task_dependant,Task_schedule){
     // Task_dependant=this.selectedId;
     this.taskService.addTask(Task_id,Task_des,Task_priority,Task_weight,Task_dependant,Task_schedule)
-                    .subscribe( data => this.addMessage = data['status']);
+                    .subscribe(data => this.addMessage = data['status']);
     
     console.log(this.addMessage);  
     console.log(Task_id,Task_des,Task_priority,Task_weight,Task_dependant,Task_schedule);
+    // while(this.addMessage != ""){}
+      // addMessage="Loding.....";
     this.router.navigate([""]);
   }
 

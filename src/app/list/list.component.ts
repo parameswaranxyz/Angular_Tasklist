@@ -14,11 +14,14 @@ import {MatPaginator, MatTableDataSource, MatSort} from '@angular/material';
 
 export class ListComponent implements OnInit {
 
-  displayedColumns:string[] = ['Id', 'description', 'priority','weight', 'dependant','schedule','control'];
+  displayedColumns:string[] = ['Id', 'description', 'priority','weight', 'dependant','schedule','create','control'];
   
   taskToEdit:Task;
   deleteMessage:string = "";
   sortedData:TaskI[];
+  pageSize:number = 5; 
+  // timeZone:string = "";
+  // dataSource.data.length = 5;  
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -26,8 +29,8 @@ export class ListComponent implements OnInit {
   constructor(private taskService:TaskListService,private router: Router,private dataStore: Data) {}
 
   // get the data and convert it as table with paginator and sorting option
-  getList(){
-    this.taskService.getTaskList().subscribe( data => {
+  async getList(){
+    await this.taskService.getTaskList().subscribe(data => {
       this.dataSource = new MatTableDataSource<TaskI>(data['list']);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;      
@@ -38,13 +41,18 @@ export class ListComponent implements OnInit {
 
   sortData(sort: Sort) {
     const data = this.sortedData.slice();
-    console.log("sliced data",data);
-    this.dataSource = data;
-    this.dataSource.paginator = this.paginator;
+    // console.log("sliced data",data);
+    // this.dataSource.paginator = this.paginator;
+    // this.pageSize = 5;
+    // this.dataSource = data;
+    this.dataSource = new MatTableDataSource<TaskI>(data);
+    this.pageindex = 0
+    this.dataSource.paginator = this.paginator;   
+
     
     if (!sort.active || sort.direction === '') {
-      this.sortedData = data;
-      this.dataSource = this.sortedData;
+      // this.sortedData = data;
+      this.dataSource = data;
       return;
     }
   
@@ -57,6 +65,7 @@ export class ListComponent implements OnInit {
         case 'weight': return compare(a.Task_weight, b.Task_weight, isAsc);
         case 'dependant': return compare(a.Task_dependant, b.Task_dependant, isAsc);
         case 'schedule': return compare(a.Task_schedule, b.Task_schedule, isAsc);
+        case 'time': return compare(a.Task_created_on, b.Task_created_on, isAsc);
         default: return 0;
       }
     });
@@ -67,6 +76,7 @@ export class ListComponent implements OnInit {
   }
 
   onSelect(editTask){
+    console.log("EditObject: ",editTask);
     this.taskToEdit = editTask;
     this.dataStore.storage = {
           "messageTask": this.taskToEdit;
@@ -82,6 +92,7 @@ export class ListComponent implements OnInit {
 
   ngOnInit(){
     this.getList();
+    // this.timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   }
 }
 

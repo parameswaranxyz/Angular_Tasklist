@@ -21,6 +21,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {Data} from "./data";
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 
@@ -56,6 +57,7 @@ const appRoutes: Routes = [
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
+    MatProgressSpinnerModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: false } 

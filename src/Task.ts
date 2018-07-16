@@ -7,6 +7,7 @@ export class Task{
     Task_weight:number = 0;
     Task_dependant:string = null;
     Task_schedule:number = 0;
+    Task_create:string = null;
 
     constructor(
     Task_id:string,
