@@ -21,8 +21,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {Data} from "./data";
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-
+import {MatProgressSpinnerModule,MatProgressBarModule} from '@angular/material';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 const appRoutes: Routes = [
@@ -39,7 +39,7 @@ const appRoutes: Routes = [
     ListComponent,
     AddTaskComponent,
     UpdateTaskComponent,
-    TaskTableComponent
+    TaskTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,10 +58,15 @@ const appRoutes: Routes = [
     MatSelectModule,
     MatInputModule,
     MatProgressSpinnerModule,
+    MatProgressBarModule,
+    MatDialogModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: false } 
     )
+  ],
+  entryComponents: [
+    AddTaskComponent,
   ],
   providers: [TaskListService,Data],
   bootstrap: [AppComponent]

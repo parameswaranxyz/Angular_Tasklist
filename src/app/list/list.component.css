@@ -17,3 +17,13 @@ table {
   background-color:#dee2e6;
   cursor: pointer;
 }
+
+div{
+
+}
+
+.notify{
+  width: 10%;
+  background-color: grey;
+  padding: 5px;
+}

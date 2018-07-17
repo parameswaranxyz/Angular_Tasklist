@@ -58,10 +58,10 @@
         <input #Task_schedule (keyup)="0"  name="Task_schedule" matInput placeholder="Task_schedule"/>
     </mat-form-field>
 
-  </div>
-
-  <div class="control">
-    <button mat-flat-button color="primary" (click)="submitMe(Task_id.value,Task_des.value,Task_priority.value,Task_weight.value,selectedValue,Task_schedule.value)">Save</button>
-    <button mat-flat-button color="primary" routerLink="">Cancel</button>
+    <div class="control">
+        <button mat-flat-button color="primary" (click)="submitMe(Task_id.value,Task_des.value,Task_priority.value,Task_weight.value,selectedValue,Task_schedule.value)">Save</button>
+        <button mat-flat-button color="primary" (click)="onCancel()">Cancel</button>
+        <!-- routerLink="" -->
+    </div>
   </div>
 </mat-card>
