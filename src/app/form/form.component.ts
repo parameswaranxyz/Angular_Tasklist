@@ -20,21 +20,24 @@ export class FormComponent implements OnInit {
 
   constructor(
     private taskService: TaskListService,
-    private data: Data,
+    private dataStore: Data,
     public dialogRef: MatDialogRef<AddTaskComponent>
   ) {
     
-    if(this.data.storage === undefined){
-      this.fromName='Add Task Entry';
+    if(this.dataStore.getData() == "Empty"){
       this.messageTask = new Task();
+      this.fromName='Add Task Entry';
+      // this.functionTask = addTask();
     }else{
       this.fromName='Update Task Entry';
-      this.messageTask = <TaskI>this.data.storage["messageTask"];
+      this.messageTask = <TaskI>this.dataStore.getData()["messageTask"];
+      // this.functionTask = updateTask();
     }
   }
 
   onCancel(message) {
     this.dialogRef.close(message);
+    this.dataStore.resetData();
   }
 
   submitMe(
@@ -45,7 +48,8 @@ export class FormComponent implements OnInit {
     Task_dependant,
     Task_schedule
   ) {
-    if(this.data.storage === undefined){
+    
+    if(this.dataStore.getData() == "Empty"){
     this.taskService
       .addTask(
         Task_id,
@@ -83,6 +87,7 @@ export class FormComponent implements OnInit {
         }
       });
     }
+    this.dataStore.resetData();
   }
 
   getList() {

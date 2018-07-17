@@ -1,16 +1,8 @@
-<!-- <div style="color:black">Notification:
-    <p>Delete Notifaction:{{deleteMessage}}</p>
-</div> -->
-
-<!-- <mat-progress-spinner mode ="indeterminate" value=50 ></mat-progress-spinner> -->
-
 <mat-card>
 
 <div class="alert {{status_class}}">
    {{status}}
 </div>
-
-<!-- <div class="notify" color="primary" selected>{{status}}</div> -->
 
 <mat-form-field class="search">
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Task">

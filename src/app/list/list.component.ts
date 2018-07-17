@@ -101,9 +101,9 @@ export class ListComponent implements OnInit {
   onSelect(editTask){
     console.log("EditObject: ",editTask);
     this.taskToEdit = editTask;
-    this.dataStore.storage = {
-          "messageTask": this.taskToEdit;
-      };
+    this.dataStore.setData({
+      "messageTask": this.taskToEdit;
+  });
   }
 
   deleteMe(id){
