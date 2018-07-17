@@ -1,0 +1,38 @@
+<mat-card>
+  <div class="example-container">
+    
+    <h5>{{ fromName }}</h5>
+
+    <mat-form-field>
+      <input #Task_id (keyup)="0" name="Task_id" matInput placeholder="Task_id" value="{{messageTask.Task_id}}"/>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input #Task_des (keyup)="0" name="Task_des" matInput placeholder="Task_description" value="{{messageTask.Task_des}}"/>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input #Task_priority (keyup)="0" name="Task_priority" matInput placeholder="Task_priority" value="{{messageTask.Task_priority}}"/>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input #Task_weight (keyup)="0" name="Task_weight" matInput placeholder="Task_weight" value="{{messageTask.Task_weight}}"/>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Dependant" [(value)]="selectedValue">
+        <mat-option value="NULL">None</mat-option>
+        <mat-option #Task_dependant (keyup)="0" *ngFor="let item of optList" [value]="item.Task_id">{{item.Task_des}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input #Task_schedule (keyup)="0" name="Task_schedule" matInput placeholder="Task_schedule" value="{{messageTask.Task_schedule}}"/>
+    </mat-form-field>
+
+    <div class="control">
+      <button mat-flat-button color="primary" (click)="submitMe(Task_id.value,Task_des.value,Task_priority.value,Task_weight.value,selectedValue,Task_schedule.value)">Save</button>
+      <button mat-flat-button color="primary" (click)="onCancel()">Cancel</button>
+    </div>
+  </div>
+</mat-card>

@@ -7,6 +7,7 @@ import { TaskI} from '../../TaskI';
 import { MatPaginator, MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { AddTaskComponent } from '../add-task/add-task.component';
 import { UpdateTaskComponent } from '../update-task/update-task.component';
+import { FormComponent } from '../form/form.component';
 import { CommonModule } from '@angular/common';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
@@ -19,15 +20,14 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 export class ListComponent implements OnInit {
 
-  displayedColumns:string[] = ['Id', 'description', 'priority','weight', 'dependant','schedule','create','control'];
+  displayedColumns:string[] = ['Id', 'description', 'priority','weight', 'dependant','schedule','create','edit','control'];
   
   taskToEdit:Task;
   sortedData:TaskI[];
   pageSize:number = 5;
-  status:string = "success";
-  // dataSource:Observable<TaskI>;
-  // timeZone:string = "";
-  // dataSource.data.length = 5;  
+  status_class:string = "fail";
+  status:string;
+ 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -52,6 +52,7 @@ export class ListComponent implements OnInit {
     });
   }
 
+  // promise
   // getList(){
   //   this.taskService.getTaskList().then( 
   //     data => {
@@ -65,20 +66,15 @@ export class ListComponent implements OnInit {
   //     () => console.log("Success")
   //   );
   // }
-
+  
   sortData(sort: Sort) {
     const data = this.sortedData.slice();
-    // console.log("sliced data",data);
-    // this.dataSource.paginator = this.paginator;
-    // this.pageSize = 5;
-    // this.dataSource = data;
     this.dataSource = new MatTableDataSource<TaskI>(data);
     this.pageindex = 0
     this.dataSource.paginator = this.paginator;   
 
     
     if (!sort.active || sort.direction === '') {
-      // this.sortedData = data;
       this.dataSource = data;
       return;
     }
@@ -108,18 +104,22 @@ export class ListComponent implements OnInit {
     this.dataStore.storage = {
           "messageTask": this.taskToEdit;
       };
-    this.router.navigate(["/UpdateTask"]);
   }
 
   deleteMe(id){
-    this.taskService.deleteTask(id).subscribe( data => this.deleteMessage = data['status']);
-    this.router.navigate([""]);
-    this.getList();
+    this.taskService.deleteTask(id).subscribe( data => {
+      if(data){
+          this.deleteMessage = data['status'];
+          this.getList();
+        }
+      else{
+        this.deleteMessage = data['status'];
+      }
+    });
   }
 
   openAddDialog() {
-    const dialogRef = this.dialog.open(AddTaskComponent, {
-      // height: '350px'
+    const dialogRef = this.dialog.open(FormComponent, {
       width:'30%'
     });
 
@@ -136,18 +136,20 @@ export class ListComponent implements OnInit {
     this.dataStore.storage = {
           "messageTask": this.taskToEdit;
       };
-    const dialogRef = this.dialog.open(UpdateTaskComponent, {
+
+    const dialogRef = this.dialog.open(FormComponent, {
       width:'30%',
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      console.log("Dialog result:",result);
+      if(result="success")
+        this.getList();
     });
   }
 
   ngOnInit(){
     this.getList();
-    // this.timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   }
 }
 

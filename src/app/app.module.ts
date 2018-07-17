@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { ListComponent } from './list/list.component';
+import {  } from './list/list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { TaskListService } from './task-list.service';
@@ -23,7 +24,8 @@ import {MatInputModule} from '@angular/material/input';
 import {Data} from "./data";
 import {MatProgressSpinnerModule,MatProgressBarModule} from '@angular/material';
 import {MatDialogModule} from '@angular/material/dialog';
-
+import {MatChipsModule} from '@angular/material/chips';
+import { FormComponent } from './form/form.component';
 
 const appRoutes: Routes = [
   { path: '', component:ListComponent },
@@ -40,6 +42,7 @@ const appRoutes: Routes = [
     AddTaskComponent,
     UpdateTaskComponent,
     TaskTableComponent,
+    FormComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,7 +69,7 @@ const appRoutes: Routes = [
     )
   ],
   entryComponents: [
-    AddTaskComponent,
+    AddTaskComponent,FormComponent,
   ],
   providers: [TaskListService,Data],
   bootstrap: [AppComponent]
