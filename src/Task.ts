@@ -3,20 +3,13 @@ export class Task{
 
     Task_id:string = null;
     Task_des:string = null;
-    Task_priority:number = 0;
-    Task_weight:number = 0;
+    Task_priority:number = 1;
+    Task_weight:number = 1;
     Task_dependant:string = null;
-    Task_schedule:number = 0;
+    Task_schedule:number = 1;
     Task_create:string = null;
 
-    constructor(
-    Task_id:string,
-    Task_des:string,
-    Task_priority:number,
-    Task_weight:number,
-    Task_dependant:string,
-    Task_schedule:number,
-    ){}
+    constructor(){}
 
     // public static getTask(data):Array<Task>{
 

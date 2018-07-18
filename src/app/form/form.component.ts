@@ -21,7 +21,7 @@ export class FormComponent implements OnInit {
   constructor(
     private taskService: TaskListService,
     private dataStore: Data,
-    public dialogRef: MatDialogRef<AddTaskComponent>
+    public dialogRef: MatDialogRef<FormComponent>
   ) {
     
     if(this.dataStore.getData() == "Empty"){
@@ -48,7 +48,7 @@ export class FormComponent implements OnInit {
     Task_dependant,
     Task_schedule
   ) {
-    
+    console.log("Hai just check:", Task_id,Task_des,Task_priority,Task_weight,Task_dependant,Task_schedule);
     if(this.dataStore.getData() == "Empty"){
     this.taskService
       .addTask(

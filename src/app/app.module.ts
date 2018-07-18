@@ -24,7 +24,6 @@ import {MatInputModule} from '@angular/material/input';
 import {Data} from "./data";
 import {MatProgressSpinnerModule,MatProgressBarModule} from '@angular/material';
 import {MatDialogModule} from '@angular/material/dialog';
-import {MatChipsModule} from '@angular/material/chips';
 import { FormComponent } from './form/form.component';
 
 const appRoutes: Routes = [

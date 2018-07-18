@@ -32,7 +32,8 @@ export class TaskListService {
 
   addTask(Task_id,Task_des,Task_priority,Task_weight,Task_dependant,Task_schedule){
     return this.http.post(this._url_add,JSON.stringify(
-      {"Task_id":Task_id,
+      {
+        // "Task_id":Task_id,
       "Task_des":Task_des,
       "Task_priority":Task_priority,
       "Task_weight":Task_weight,
@@ -41,9 +42,10 @@ export class TaskListService {
   }
 
   updateTask(Task_id,Task_des,Task_priority,Task_weight,Task_dependant,Task_schedule){
-    console.log("inside the service update"+Task_id,Task_des,Task_priority,Task_weight,Task_dependant,Task_schedule);
+    console.log("inside the service update"+Task_des,Task_priority,Task_weight,Task_dependant,Task_schedule);
     return this.http.post(this._url_update,JSON.stringify(
-      {"Task_id":Task_id,
+      {
+      "Task_id":Task_id,
       "Task_des":Task_des,
       "Task_priority":Task_priority,
       "Task_weight":Task_weight,

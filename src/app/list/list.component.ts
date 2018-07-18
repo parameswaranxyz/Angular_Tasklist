@@ -102,7 +102,7 @@ export class ListComponent implements OnInit {
     console.log("EditObject: ",editTask);
     this.taskToEdit = editTask;
     this.dataStore.setData({
-      "messageTask": this.taskToEdit;
+      "messageTask": this.taskToEdit,
   });
   }
 
@@ -134,7 +134,7 @@ export class ListComponent implements OnInit {
     console.log("EditObject: ",editTask);
     this.taskToEdit = editTask;
     this.dataStore.storage = {
-          "messageTask": this.taskToEdit;
+          "messageTask": this.taskToEdit
       };
 
     const dialogRef = this.dialog.open(FormComponent, {
