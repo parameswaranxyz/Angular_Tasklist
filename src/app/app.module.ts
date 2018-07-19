@@ -3,15 +3,11 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { ListComponent } from './list/list.component';
-import {  } from './list/list.component';
 import { HttpClientModule } from '@angular/common/http';
-import { AddTaskComponent } from './add-task/add-task.component';
 import { TaskListService } from './task-list.service';
-import { UpdateTaskComponent } from './update-task/update-task.component';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
-import { TaskTableComponent } from './task-table/task-table.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatCardModule} from '@angular/material/card';
@@ -25,23 +21,19 @@ import {Data} from "./data";
 import {MatProgressSpinnerModule,MatProgressBarModule} from '@angular/material';
 import {MatDialogModule} from '@angular/material/dialog';
 import { FormComponent } from './form/form.component';
+import {MatSliderModule} from '@angular/material/slider';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material';
 
 const appRoutes: Routes = [
   { path: '', component:ListComponent },
-  { path: 'AddTask', component: AddTaskComponent },
-  { path: 'UpdateTask', component: UpdateTaskComponent },
-  { path: 'TaskTable', component: TaskTableComponent },
-  
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    ListComponent,
-    AddTaskComponent,
-    UpdateTaskComponent,
-    TaskTableComponent,
     FormComponent,
+    ListComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,16 +51,19 @@ const appRoutes: Routes = [
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
+    MatSliderModule,
+    MatNativeDateModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
     MatDialogModule,
+    MatDatepickerModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: false } 
     )
   ],
   entryComponents: [
-    AddTaskComponent,FormComponent,
+    FormComponent,
   ],
   providers: [TaskListService,Data],
   bootstrap: [AppComponent]

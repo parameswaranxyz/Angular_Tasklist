@@ -5,13 +5,10 @@ import { Router, NavigationExtras } from "@angular/router";
 import { Data } from "../data";
 import { TaskI} from '../../TaskI';
 import { MatPaginator, MatTableDataSource, MatSort, MatDialog } from '@angular/material';
-import { AddTaskComponent } from '../add-task/add-task.component';
-import { UpdateTaskComponent } from '../update-task/update-task.component';
 import { FormComponent } from '../form/form.component';
 import { CommonModule } from '@angular/common';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+ 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -25,9 +22,10 @@ export class ListComponent implements OnInit {
   taskToEdit:Task;
   sortedData:TaskI[];
   pageSize:number = 5;
-  status_class:string = "fail";
+  statusClass:string = "";
   status:string;
- 
+  deleteMessage:string;
+  messageStatus:string="";
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -70,7 +68,7 @@ export class ListComponent implements OnInit {
   sortData(sort: Sort) {
     const data = this.sortedData.slice();
     this.dataSource = new MatTableDataSource<TaskI>(data);
-    this.pageindex = 0
+    // this.pageindex = 0
     this.dataSource.paginator = this.paginator;   
 
     
@@ -118,34 +116,59 @@ export class ListComponent implements OnInit {
     });
   }
 
-  openAddDialog() {
+  messageStatusUp(message,status){
+
+    this.statusClass = status;
+    this.messageStatus = message;
+    setTimeout( () => { 
+      this.messageStatus = "";
+      this.statusClass="";
+      console.log("click"); 
+    }, 700 );
+
+  }
+
+  openCloseDialog(){
     const dialogRef = this.dialog.open(FormComponent, {
       width:'30%'
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log("Dialog result:",result);
-      if(result="success")
+      if(result=="success"){
         this.getList();
+        this.messageStatusUp(result,"success");
+      }
+      else{
+        this.messageStatusUp("Failed","fail");
+      }
     });
   }
+
+  // openAddDialog() {
+  //   const dialogRef = this.dialog.open(FormComponent, {
+  //     width:'30%'
+  //   });
+
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     console.log("Dialog result:",result);
+  //     if(result="success"){
+  //       this.getList();
+  //       this.messageStatusUp(message,"success");
+  //     }
+  //     else{
+  //       this.messageStatusUp("Failed","fail");
+  //     }
+  //   });
+  // }
 
   openUpdateDialog(editTask){
     console.log("EditObject: ",editTask);
     this.taskToEdit = editTask;
-    this.dataStore.storage = {
-          "messageTask": this.taskToEdit
-      };
-
-    const dialogRef = this.dialog.open(FormComponent, {
-      width:'30%',
+    this.dataStore.setData({
+      "messageTask": this.taskToEdit
     });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log("Dialog result:",result);
-      if(result="success")
-        this.getList();
-    });
+    this.openCloseDialog();
   }
 
   ngOnInit(){
