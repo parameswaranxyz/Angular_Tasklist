@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TaskI } from '../TaskI';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,10 @@ export class TaskListService {
   _url_update:string ="/api/updateTask";
   _url_delete:string = "/api/deleteTask";
   _url_getATask:string = "/api/getTask";
+  
+  _url_signup:string = " /api/createUser";
+  _url_login:string = " /api/userLogin";
+  _url_logout:string = " /api/userLogout";
   
   constructor(private http:HttpClient) { }
  
@@ -51,5 +55,22 @@ export class TaskListService {
       "Task_weight":Task_weight,
       "Task_dependant":Task_dependant,
       "Task_schedule":Task_schedule}));
+  }
+
+  // constructor(private http:HttpClient) { }
+ 
+  signup(username,password){
+    console.log(username,password);
+    return this.http.post(this._url_signup,JSON.stringify({"username": username,"password":password}));
+  }
+
+  login(username,password){
+    console.log("Inside the login");
+    return this.http.post(this._url_login,JSON.stringify({"username": username,"password":password}));
+  }
+
+  logout(username,password){
+    console.log("Inside the logout");
+    return this.http.post(this._url_logout,JSON.stringify({"username": username,"password":password}));
   }
 }
