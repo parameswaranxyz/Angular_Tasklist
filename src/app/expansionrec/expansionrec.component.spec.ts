@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TreeComponent } from './tree.component';
+import { ExpansionrecComponent } from './expansionrec.component';
 
-describe('TreeComponent', () => {
-  let component: TreeComponent;
-  let fixture: ComponentFixture<TreeComponent>;
+describe('ExpansionrecComponent', () => {
+  let component: ExpansionrecComponent;
+  let fixture: ComponentFixture<ExpansionrecComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TreeComponent ]
+      declarations: [ ExpansionrecComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TreeComponent);
+    fixture = TestBed.createComponent(ExpansionrecComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

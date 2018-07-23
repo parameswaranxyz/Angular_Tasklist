@@ -1,0 +1,31 @@
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+          <ng-container *ngIf="this.root!=null; then print"></ng-container>
+            <ng-template #print>
+                {{ this.root.Task_id}}
+                {{this.root.Task_des}}
+                {{this.root.Task_dependant_id}}
+                {{this.root.Task_priority}}
+                {{this.root.Task_weight}}
+                {{this.root.Task_create }}
+                <!-- {{root.Task_id,root.Task_des,root.Task_dependant_id,root.Task_priority,root.Task_weight,root.Task_create}} -->
+            </ng-template>
+        </mat-panel-title>
+        <mat-panel-description>
+        <mat-icon>account_circle</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    
+    <div *ngFor="let item of this.root.children ">
+     <!-- {{ item.Task_id }}  -->
+      <app-expansionrec *ngIf="item!=null" [root]="item" ></app-expansionrec> 
+    </div>
+
+    <!-- <ng-container *ngIf="this.root.children!=null; then loop"></ng-container>
+
+      <ng-template #loop  *ngFor="let item of this.root.children">
+          {{ item }} 
+         <app-expansionrec *ngIf="item!=null" [root]="item" ></app-expansionrec> 
+      </ng-template> -->
+  </mat-expansion-panel>

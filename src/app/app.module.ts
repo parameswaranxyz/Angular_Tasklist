@@ -33,6 +33,7 @@ import { SignupComponent } from './signup/signup.component';
 import { TaskListService } from './task-list.service';
 import { SigninComponent } from './signin/signin.component';
 import { TreeviewComponent } from './treeview/treeview.component';
+import { ExpansionrecComponent } from './expansionrec/expansionrec.component';
 // import {MatTreeFlattener} from '@angular/material/tree';
 
 const appRoutes: Routes = [
@@ -53,6 +54,7 @@ const appRoutes: Routes = [
     SignupComponent,
     SigninComponent,
     TreeviewComponent,
+    ExpansionrecComponent,
   ],
   imports: [
     BrowserModule,

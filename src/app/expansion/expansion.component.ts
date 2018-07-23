@@ -1,36 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { TaskListService } from '../task-list.service';
+import { Tree } from '../../tree';
 
 @Component({
   selector: 'app-expansion',
-  // templateUrl: './expansion.component.html',
+  templateUrl: './expansion.component.html',
   styleUrls: ['./expansion.component.css'],
-  template:`
-<mat-card>
-  <mat-accordion class="example-headers-align">
-    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-           Personal data
-          </mat-panel-title>
-          <mat-panel-description>
-            Type your name and age
-           <mat-icon>account_circle</mat-icon>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      [(ngModel)]="recCode"
-    </mat-expansion-panel>
-  </mat-accordion>
-</mat-card>
-  `
 })
 
+// <app-expansion></app-expansion>
 export class ExpansionComponent implements OnInit {
 
-  constructor() { }
+  dataObject:TaskI=null;
+  tree:Tree = null;
 
-  ngOnInit() {
-
+  constructor(private taskService:TaskListService) { 
+    this.taskService.getTaskListTree().subscribe(data => {
+      this.tree = new Tree();
+      this.tree.set(data['list']);
+      console.log(this.tree);
+      // root = this.tree.root;
+    });
   }
 
+  ngOnInit() {
+    
+  }
 }

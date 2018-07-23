@@ -6,4 +6,5 @@ export interface TaskI{
     Task_dependant:string,
     Task_schedule:number,
     Task_created_on:any,
+    children:TaskI[];
 }
