@@ -4,6 +4,7 @@ import { MatTreeFlattener } from "@angular/material/tree";
 import { BehaviorSubject, Observable, of as observableOf } from "rxjs";
 import { MatTreeFlatDataSource } from "@angular/material/tree";
 import { TaskI } from "../../TaskI";
+import { TaskListService } from '../task-list.service';
 
 /**
  * File node data with nested structure.
@@ -28,88 +29,41 @@ export class FileFlatNode {
 /**
  * The file structure tree data in string. The data could be parsed into a Json object
  */
-
-const MY_TREE_DATA = JSON.stringify([
-  {
-    Task_id: 4,
-    Task_des: "Sample_data",
-    Task_priority: 1,
-    Task_weight: 1,
-    Task_dependant: "None",
-    Task_schedule: 1,
-    Task_created_on: "2018-07-18 12:06:06.524434+00:00",
-    child_items: [
-      {
-        Task_id: 5,
-        Task_des: "Sample job",
-        Task_priority: 2,
-        Task_weight: 2,
-        Task_dependant: "None",
-        Task_schedule: 2,
-        Task_created_on: "2018-07-18 12:09:19.662831+00:00"
-      },
-      {
-        Task_id: 5,
-        Task_des: "Sample job",
-        Task_priority: 2,
-        Task_weight: 2,
-        Task_dependant: "None",
-        Task_schedule: 2,
-        Task_created_on: "2018-07-18 12:09:19.662831+00:00"
+const MY_TREE_DATA = JSON.stringify({
+  Applications: {
+    Calendar: 'app',
+    Chrome: 'app',
+    Webstorm: 'app'
+  },
+  Documents: {
+    angular: {
+      src: {
+        compiler: 'ts',
+        core: 'ts'
       }
-    ]
+    },
+    material2: {
+      src: {
+        button: 'ts',
+        checkbox: 'ts',
+        input: 'ts'
+      }
+    }
   },
-
-  {
-    Task_id: 5,
-    Task_des: "Sample job",
-    Task_priority: 2,
-    Task_weight: 2,
-    Task_dependant: "None",
-    Task_schedule: 2,
-    Task_created_on: "2018-07-18 12:09:19.662831+00:00"
+  Downloads: {
+    October: 'pdf',
+    November: 'pdf',
+    Tutorial: 'html'
   },
-
-  {
-    Task_id: 9,
-    Task_des: "asads",
-    Task_priority: 1,
-    Task_weight: 1,
-    Task_dependant: "None",
-    Task_schedule: 1,
-    Task_created_on: "2018-07-18 12:47:37.788122+00:00"
-  },
-
-  {
-    Task_id: 11,
-    Task_des: "dasda",
-    Task_priority: 1,
-    Task_weight: 1,
-    Task_dependant: "None",
-    Task_schedule: 1,
-    Task_created_on: "2018-07-18 12:48:55.740972+00:00"
-  },
-
-  {
-    Task_id: 14,
-    Task_des: "dnass_parames",
-    Task_priority: 5,
-    Task_weight: 1,
-    Task_dependant: "None",
-    Task_schedule: 1,
-    Task_created_on: "2018-07-18 18:00:47.490559+00:00"
-  },
-
-  {
-    Task_id: 16,
-    Task_des: "ftrt",
-    Task_priority: 1,
-    Task_weight: 1,
-    Task_dependant: "None",
-    Task_schedule: 1,
-    Task_created_on: "2018-07-18 19:00:13.863386+00:00"
+  Pictures: {
+    'Photo Booth Library': {
+      Contents: 'dir',
+      Pictures: 'dir'
+    },
+    Sun: 'png',
+    Woods: 'jpg'
   }
-]);
+});
 
 /**
  * File database, it can build a tree structured Json object from string.
@@ -122,31 +76,46 @@ const MY_TREE_DATA = JSON.stringify([
 @Injectable()
 export class FileDatabase {
   dataChange = new BehaviorSubject<FileNode[]>([]);
+  dataObject:JSON = null;
 
   get data(): FileNode[] {
     return this.dataChange.value;
   }
 
-  constructor() {
+  constructor(private taskService:TaskListService) {
     this.initialize();
   }
 
   initialize() {
-    // Parse the string to json object.
-    const dataObject = JSON.parse(MY_TREE_DATA);
+    
+  //   this.taskService.getTaskListTree().subscribe(data => {
+  //     console.log(data['list']);
+  //   if(data){
+  //       this.dataObject = data['list'];
+  //       const data = this.buildFileTree(this.dataObject, 0);
+  //       console.log(this.dataObject)
+  //   // Notify the change.
+  //     this.dataChange.next(data);
+  //   }
+  //   else{
+  //       console.log("Error in response");
+  //     }
+  // });
 
+    // Parse the string to json object.
+    const data = this.buildFileTree(dataObject, 0);
+    const dataObject = JSON.parse(MY_TREE_DATA);
+    this.dataChange.next(data);
     // Build the tree nodes from Json object. The result is a list of `FileNode` with nested
     //     file node as children.
-    const data = this.buildFileTree(dataObject, 0);
 
-    // Notify the change.
-    this.dataChange.next(data);
   }
 
   /**
    * Build the file structure tree. The `value` is the Json object, or a sub-tree of a Json object.
    * The return value is the list of `FileNode`.
    */
+
   buildFileTree(obj: object, level: number): FileNode[] {
     return Object.keys(obj).reduce<FileNode[]>((accumulator, key) => {
       const value = obj[key];

@@ -2,7 +2,12 @@
 <!-- <app-task-list-table></app-task-list-table> -->
 <mat-toolbar color="primary">
     <span routerLink="">Task Manager</span>
-    <span class="example-fill-remaining-space"></span>
+    <span style="display:block;float:right;"><!--</span> class="example-fill-remaining-space"> -->
+    <!-- <div *ngIf="!taskService.checkAuthentication()">  
+        <a style="color:whitesmoke;text-decoration :none" routerLink="/signup">SignUp</a>
+        <a style="color:whitesmoke;text-decoration:none;" routerLink="/login">SignIn</a>  
+    </div>         -->
+    </span>
 </mat-toolbar>
 <!-- <nav>
     <a routerLink="">ListTask</a>

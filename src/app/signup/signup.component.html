@@ -13,49 +13,20 @@
         </mat-form-field>
 
         <mat-form-field>
-          <input #pass1 matInput placeholder="Password">
+          <input #pass1 matInput type="password" placeholder="Password">
         </mat-form-field>
 
         <mat-form-field>
-          <input #pass2 matInput placeholder="Repeat Password">
+          <input #pass2 matInput type="password" placeholder="Repeat Password">
         </mat-form-field>
-        <button mat-flat-button color="primary" (click)="onSignup(username.value,pass1.value,pass2.value)">SignUp</button>
-        <!-- <button mat-flat-button color="primary" (click)="onCancel('')">LogIn</button> -->
+        <button mat-flat-button color="primary" type="submit" (click)="onSignup(username.value,pass1.value,pass2.value)" >SignUp</button>
       </div>
     </mat-card-content>
 
     <mat-card-actions>
-    
+      <button mat-flat-button color="primary" routerLink="/login">LogIn</button>
       <!-- <button mat-button color="primary">LIKE</button> -->
       <!-- <button mat-button>SHARE</button> -->
     </mat-card-actions>
   </mat-card>
-  <mat-card class="example-card">
-      <mat-card-header>
-        Login
-      </mat-card-header>
-      
-      <mat-card-content>
-        
-        <div class="example-container">
-          
-          <mat-form-field>
-            <input #username matInput placeholder="Username">
-          </mat-form-field>
-  
-          <mat-form-field>
-            <input #pass matInput placeholder="Password">
-          </mat-form-field>
-  
-          <button mat-flat-button color="primary" (click)="onLogin(username.value,pass.value)">Login</button>
-          <!-- <button mat-flat-button color="primary" (click)="onCancel('')">LogIn</button> onLogout-->
-        </div>
-      </mat-card-content>
-  
-      <mat-card-actions>
-        <button mat-flat-button color="primary" (click)="onLogout()">Logout</button>
-        <!-- <button mat-button color="primary">LIKE</button> -->
-        <!-- <button mat-button>SHARE</button> -->
-      </mat-card-actions>
-    </mat-card>
 </mat-card>

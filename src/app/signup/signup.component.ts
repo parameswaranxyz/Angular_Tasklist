@@ -26,22 +26,4 @@ export class SignupComponent implements OnInit {
       console.log("failed");
     }
   }
-
-  onLogin(usrname,pass1) {
-      this.taskService.login(usrname,pass1).subscribe(data=>{
-        console.log(data['status']);
-        if(data['status']=='success'){
-          this.router.navigate(['list']);
-        }
-      });
-      console.log();
-  }
-
-  onLogout() {
-    this.taskService.logout().subscribe(data=>{
-      console.log(data['status']);
-    });
-    console.log();
-}
-
 }

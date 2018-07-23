@@ -31,12 +31,15 @@ import { ExpansionComponent } from './expansion/expansion.component';
 import { SignupComponent } from './signup/signup.component';
 // import { AuthService } from "./auth.service";
 import { TaskListService } from './task-list.service';
+import { SigninComponent } from './signin/signin.component';
+import { TreeviewComponent } from './treeview/treeview.component';
 // import {MatTreeFlattener} from '@angular/material/tree';
 
 const appRoutes: Routes = [
-  { path: '', component:SignupComponent },
-  { path: 'list', component:ListComponent },
-  { path: 'tree', component:TreeComponent},
+  { path: 'signup', component:SignupComponent },
+  { path: 'login', component:SigninComponent },
+  { path: 'list', component:ListComponent},
+  { path: 'tree', component:TreeviewComponent},
   { path: 'expansion', component:ExpansionComponent},
 ];
 
@@ -48,6 +51,8 @@ const appRoutes: Routes = [
     TreeComponent,
     ExpansionComponent,
     SignupComponent,
+    SigninComponent,
+    TreeviewComponent,
   ],
   imports: [
     BrowserModule,
