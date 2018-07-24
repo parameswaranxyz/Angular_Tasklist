@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { Tree } from '../../tree';
 import { Task } from '../../Task';
 
@@ -6,7 +6,8 @@ import { Task } from '../../Task';
 @Component({
   selector: 'app-expansionrec',
   templateUrl: './expansionrec.component.html',
-  styleUrls: ['./expansionrec.component.css']
+  styleUrls: ['./expansionrec.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ExpansionrecComponent implements OnInit {
 

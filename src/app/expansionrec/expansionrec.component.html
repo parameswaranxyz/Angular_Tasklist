@@ -1,24 +1,41 @@
 <!-- <button (click)="this.allExpandState = false">Collapse All </button> -->
-<mat-expansion-panel [expanded]="this.allExpandState">
-    <mat-expansion-panel-header>
-        <mat-panel-description>  
+<mat-expansion-panel [expanded]="this.allExpandState" style="">
+    <mat-expansion-panel-header class="head">
+        <mat-panel-description class="description">  
           <ng-container *ngIf="this.root.Task_id!='None'; then print;else print1"></ng-container>
             <ng-template #print>
-                {{this.root.Task_id}}
-                {{this.root.Task_des}}
-                {{this.root.Task_dependant_id}}
-                {{this.root.Task_priority}}
-                {{this.root.Task_weight}}
-                {{this.root.Task_create | date:'medium'}}
+                <ul class="nav" style="list-style-type:none;">
+                    <li>{{this.root.Task_id}}</li>
+                    <li>{{this.root.Task_des}}</li>
+                    <li>{{this.root.Task_priority}}</li>
+                    <li><mat-icon matBadge="15" matBadgeColor="warn" color="primary">reorder</mat-icon><span style="color: #fff;
+                      /* reorder battery_charging_full*/
+                      background: #f44336;                      
+                      text-align: center;
+                      display: inline-block;
+                      border-radius: 50%;
+                      transition: transform 0.2s ease-in-out;
+                      transform: scale(0.6);
+                      overflow: hidden;
+                      white-space: nowrap;
+                      text-overflow: ellipsis;
+                      pointer-events: none;
+                      width: 25px;
+                      height: 25px;
+                      "><p style="font-size: 21px">{{this.root.Task_weight}}</p></span></li>                   
+                    <li>{{this.root.Task_schedule}}</li>
+                    <li>{{this.root.Task_create | date:'medium'}}</li>                    
+                  </ul>
                 <!-- {{root.Task_id,root.Task_des,root.Task_dependant_id,root.Task_priority,root.Task_weight,root.Task_create}} -->
             </ng-template>
             <ng-template #print1>    
-              <ul style="list-style-type:none;">
+              <ul class="nav" style="list-style-type:none;">
                 <li>id</li>
                 <li>Description</li>
                 <li>Priority</li>
                 <li>Weight</li>
-                <li>Dependant</li>
+                <!-- {{this.root.Task_weight}} -->
+                <!-- <li>Dependant</li> -->
                 <li>Schedule</li>
                 <li>Created On</li>
               </ul>
@@ -30,10 +47,9 @@
     </mat-expansion-panel-header>
     
     <div *ngFor="let item of this.sortArray(this.root.children) ">
-     <!-- {{ item.Task_id }}  -->
-        <app-expansionrec *ngIf="item!=null" [root]="item">
-        </app-expansionrec> 
-        
+     <!-- {{ item.Task_id }}  -->     
+      <app-expansionrec *ngIf="item!=null" [root]="item">
+      </app-expansionrec> 
     </div>
 
     <!-- <ng-container *ngIf="this.root.children!=null; then loop"></ng-container>

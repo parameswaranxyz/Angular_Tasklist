@@ -11,5 +11,5 @@ export class Tree{
     set(object){
         this.root = object;
     }
-
+    
 }

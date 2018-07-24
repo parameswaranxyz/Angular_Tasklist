@@ -7,3 +7,9 @@
   justify-content: space-between;
   align-items: center;
 }
+
+
+
+.mat-expansion-panel .mat-expansion-panel-content .mat-expansion-panel-body{
+  padding: 0px 0px 0px 50px !important;
+}
