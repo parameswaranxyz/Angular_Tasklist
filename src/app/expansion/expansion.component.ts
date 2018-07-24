@@ -19,7 +19,8 @@ export class ExpansionComponent implements OnInit {
     this.taskService.getTaskListTree().subscribe(data => {
       this.tree = new Tree();
       this.tree.set(data['list']);
-      console.log(this.tree);
+      console.log(data['list']);
+      console.log("Tree:",this.tree);
       // root = this.tree.root;
     });
   }

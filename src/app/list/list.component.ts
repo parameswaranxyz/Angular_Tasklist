@@ -145,23 +145,6 @@ export class ListComponent implements OnInit {
     });
   }
 
-  // openAddDialog() {
-  //   const dialogRef = this.dialog.open(FormComponent, {
-  //     width:'30%'
-  //   });
-
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log("Dialog result:",result);
-  //     if(result="success"){
-  //       this.getList();
-  //       this.messageStatusUp(message,"success");
-  //     }
-  //     else{
-  //       this.messageStatusUp("Failed","fail");
-  //     }
-  //   });
-  // }
-
   openUpdateDialog(editTask){
     console.log("EditObject: ",editTask);
     this.taskToEdit = editTask;

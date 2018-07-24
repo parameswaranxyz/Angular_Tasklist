@@ -1,25 +1,39 @@
-<mat-expansion-panel>
+<!-- <button (click)="this.allExpandState = false">Collapse All </button> -->
+<mat-expansion-panel [expanded]="this.allExpandState">
     <mat-expansion-panel-header>
-        <mat-panel-title>
-          <ng-container *ngIf="this.root!=null; then print"></ng-container>
+        <mat-panel-description>  
+          <ng-container *ngIf="this.root.Task_id!='None'; then print;else print1"></ng-container>
             <ng-template #print>
-                {{ this.root.Task_id}}
+                {{this.root.Task_id}}
                 {{this.root.Task_des}}
                 {{this.root.Task_dependant_id}}
                 {{this.root.Task_priority}}
                 {{this.root.Task_weight}}
-                {{this.root.Task_create }}
+                {{this.root.Task_create | date:'medium'}}
                 <!-- {{root.Task_id,root.Task_des,root.Task_dependant_id,root.Task_priority,root.Task_weight,root.Task_create}} -->
             </ng-template>
-        </mat-panel-title>
-        <mat-panel-description>
-        <mat-icon>account_circle</mat-icon>
+            <ng-template #print1>    
+              <ul style="list-style-type:none;">
+                <li>id</li>
+                <li>Description</li>
+                <li>Priority</li>
+                <li>Weight</li>
+                <li>Dependant</li>
+                <li>Schedule</li>
+                <li>Created On</li>
+              </ul>
+                <!-- {{root.Task_id,root.Task_des,root.Task_dependant_id,root.Task_priority,root.Task_weight,root.Task_create}} -->
+            </ng-template>
+        
+        
       </mat-panel-description>
     </mat-expansion-panel-header>
     
-    <div *ngFor="let item of this.root.children ">
+    <div *ngFor="let item of this.sortArray(this.root.children) ">
      <!-- {{ item.Task_id }}  -->
-      <app-expansionrec *ngIf="item!=null" [root]="item" ></app-expansionrec> 
+        <app-expansionrec *ngIf="item!=null" [root]="item">
+        </app-expansionrec> 
+        
     </div>
 
     <!-- <ng-container *ngIf="this.root.children!=null; then loop"></ng-container>
